@@ -1,0 +1,147 @@
+{
+	"ociVersion": "1.0.1-dev",
+	"process": {
+		"user": {
+			"uid": 1001,
+			"gid": 2000
+		},
+		"args": [
+			"/mnt/bin/dumb-init",
+			"bash",
+			"docker-entrypoint.sh",
+			"postgres"
+		],
+		"env": [
+			"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/postgresql/14/bin",
+			"GOSU_VERSION=1.14",
+			"LANG=en_US.utf8",
+			"PG_MAJOR=14",
+			"PG_VERSION=14.3-1.pgdg110+1",
+			"PGDATA=/tmp/postgresql/data",
+			"POSTGRES_PASSWORD=randompassword"
+		],
+		"cwd": "/",
+		"capabilities": {
+			"bounding": [
+				"CAP_NET_RAW"
+			],
+			"effective": [
+				"CAP_NET_RAW"
+			],
+			"inheritable": [
+				"CAP_NET_RAW"
+			],
+			"permitted": [
+				"CAP_NET_RAW"
+			],
+			"ambient": [
+				"CAP_NET_RAW"
+			]
+		},
+		"rlimits": [
+			{
+				"type": "RLIMIT_NOFILE",
+				"hard": 1024,
+				"soft": 1024
+			},
+			{
+				"type": "RLIMIT_CPU",
+				"hard": 60,
+				"soft": 60
+			},
+			{
+				"type": "RLIMIT_FSIZE",
+				"hard": 2147483648,
+				"soft": 2147483648
+			},
+			{
+				"type": "RLIMIT_CORE",
+				"hard": 18446744073709551615,
+				"soft": 18446744073709551615
+			},
+			{
+				"type": "RLIMIT_STACK",
+				"hard": 33554432,
+				"soft": 33554432
+			}
+		],
+		"noNewPrivileges": true
+	},
+	"root": {
+		"path": "rootfs"
+	},
+	"hostname": "postgresql",
+	"mounts": [
+		{
+			"destination": "/proc",
+			"type": "proc",
+			"source": "proc"
+		},
+		{
+			"destination": "/etc/resolv.conf",
+			"type": "bind",
+			"source": "/etc/resolv.conf",
+			"options": [
+				"rbind",
+				"ro"
+			]
+		},
+		{
+			"destination": "/sys/fs/cgroup",
+			"type": "cgroup",
+			"source": "cgroup",
+			"options": [
+				"nosuid",
+				"noexec",
+				"nodev",
+				"relatime",
+				"ro"
+			]
+		},
+		{
+			"destination": "/mnt/bin",
+			"type": "bind",
+			"source": "/mnt/bin",
+			"options": [
+				"rbind",
+				"ro"
+			]
+		}
+	],
+	"linux": {
+		"resources": {
+			"devices": [
+				{
+					"allow": false,
+					"access": "rwm"
+				}
+			],
+			"memory": {
+				"limit": 3242196992,
+				"swap": 3242196992,
+				"kernel": 3242196992
+			},
+			"pids": {
+				"limit": 1024
+			}
+		},
+		"namespaces": [
+			{
+				"type": "pid"
+			},
+			{
+				"type": "ipc"
+			},
+			{
+				"type": "uts"
+			},
+			{
+				"type": "mount"
+			}
+		],
+		"maskedPaths": [
+		],
+		"readonlyPaths": [
+		]
+	}
+}
